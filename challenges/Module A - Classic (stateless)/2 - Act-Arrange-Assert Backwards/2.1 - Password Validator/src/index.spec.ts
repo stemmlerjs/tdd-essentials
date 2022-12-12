@@ -97,6 +97,20 @@ describe('password validator', () => {
     // assert
     expect(response.result).toBeTruthy();
     expect(response.errors.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it('returns multiple errors when there is no uppercase and no number and invalid length like in "ab"', () => {
+    let response: CheckedPasswordResponse;
+
+    // act
+    response = PasswordChecker.checkPassword('ab')
+
+    // assert
+    expect(response.result).toBeFalsy();
+    expect(response.errors.length).toEqual(3);
+    expect(response.errors).toContain('NoUppercaseError');
+    expect(response.errors).toContain('MissingDigitError');
+    expect(response.errors).toContain('InvalidLengthError');
   })
 })
 
