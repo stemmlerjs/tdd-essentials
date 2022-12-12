@@ -27,43 +27,43 @@ describe('password validator', () => {
     expect(response.errors).toContain('InvalidLengthError');
   });
 
-  it('returns a successful response when a word like "bl8ke" is exactly 5 characters', () => {
+  it('returns a successful response when a word like "bl8kE" is exactly 5 characters', () => {
     // arrange
     let response: CheckedPasswordResponse;
 
     // act
-    response = PasswordChecker.checkPassword('bl8ke')
+    response = PasswordChecker.checkPassword('bl8kE')
 
     // assert
     expect(response.result).toBeTruthy();
     expect(response.errors.length).toBe(0);
   });
 
-  it('returns a successful response when a word like "mot3er" is exactly 6 characters', () => {
+  it('returns a successful response when a word like "Mot3er" is exactly 6 characters', () => {
     // arrange
     let response: CheckedPasswordResponse;
 
     // act
-    response = PasswordChecker.checkPassword('mot3er')
+    response = PasswordChecker.checkPassword('Mot3er')
 
     // assert
     expect(response.result).toBeTruthy();
     expect(response.errors.length).toBe(0);
   });
 
-  it('returns a successful response when a word like "mo7hers" is exactly 7 characters', () => {
+  it('returns a successful response when a word like "mo7herS" is exactly 7 characters', () => {
     // arrange
     let response: CheckedPasswordResponse;
 
     // act
-    response = PasswordChecker.checkPassword('mo7hers')
+    response = PasswordChecker.checkPassword('mo7herS')
 
     // assert
     expect(response.result).toBeTruthy();
     expect(response.errors.length).toBe(0);
   });
 
-  it ('returns an error if passwords dont contain at least one digit', () => {
+  it ('returns an error if words like "hello" dont contain at least one digit', () => {
     let response: CheckedPasswordResponse;
 
     // act
@@ -75,7 +75,28 @@ describe('password validator', () => {
     expect(response.errors).toContain('MissingDigitError');
 
   })
-  
-  
+
+  it('returns an error if words like "mo7hers" dont contain at least one uppercase character', () => {
+    let response: CheckedPasswordResponse;
+
+    // act
+    response = PasswordChecker.checkPassword('mo7hers')
+
+    // assert
+    expect(response.result).toBeFalsy();
+    expect(response.errors.length).toBeGreaterThanOrEqual(1);
+    expect(response.errors).toContain('NoUppercaseError');
+  });
+
+  it('returns a successful response if words like "Mo7hers" contain at least one uppercase character', () => {
+    let response: CheckedPasswordResponse;
+
+    // act
+    response = PasswordChecker.checkPassword('Mo7hers')
+
+    // assert
+    expect(response.result).toBeTruthy();
+    expect(response.errors.length).toBeGreaterThanOrEqual(0);
+  })
 })
 
