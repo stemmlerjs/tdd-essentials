@@ -18,6 +18,7 @@ describe('password validator', () => {
   it('returns an invalid length error when strings like "billnyethescienceguyhustlegangwhatsgood" are longer than 10 characters', () => {
     let response: CheckedPasswordResponse;
 
+    // act
     response = PasswordChecker.checkPassword('billnyethescienceguyhustlegangwhatsgood')
 
     // assert
@@ -26,6 +27,17 @@ describe('password validator', () => {
     expect(response.errors[0]).toEqual('InvalidLengthError');
   });
 
+  it('returns a successful response when a word like "bloke" is exactly 5 characters', () => {
+    // arrange
+    let response: CheckedPasswordResponse;
+
+    // act
+    response = PasswordChecker.checkPassword('bloke')
+
+    // assert
+    expect(response.result).toBeTruthy();
+    expect(response.errors.length).toBe(0);
+  })
   
 })
 
