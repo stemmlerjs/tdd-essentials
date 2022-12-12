@@ -1,29 +1,18 @@
-// import { PalindromeChecker } from './index'
 
-// describe('palindrome checker', () => {
-//   let palindromeChecker: PalindromeChecker;
+import { PasswordChecker } from './index'
 
-//   beforeEach(() => {
-//     palindromeChecker = new PalindromeChecker();
-//   })
 
-//   it('should be able to tell that "mom" is a palindrome', () => {
-//     expect(palindromeChecker.isAPalindrome('mom')).toBeTruthy();
-//   });
+describe('password validator', () => {
+  it ('returns an invalid length error when strings like "mom" are less than 5 characters', () => {
+    // arrange
 
-//   it('should be able to tell that "bill" isnt a palindrome', () => {
-//     expect(palindromeChecker.isAPalindrome('bill')).toBeFalsy();
-//   });
+    // act
+    let response = PasswordChecker.checkPassword('mom')
 
-//   it('should still detect a palindrome even if the casing is off', () => {
-//     expect(palindromeChecker.isAPalindrome("Mom")).toBeTruthy();
-//   });
+    // assert
+    expect(response.result).toBeFalsy();
+    expect(response.errors.length).toEqual(1);
+    expect(response.errors[0]).toEqual('InvalidLengthError');
+  })
+})
 
-//   it('should be able to tell that "Was It A Rat I Saw" is a palindrome', () => {
-//     expect(palindromeChecker.isAPalindrome("Was It A Rat I Saw")).toBeTruthy();
-//   });
-
-//   it('should be able to tell that "Never Odd or Even" is palindrome', () => {
-//     expect(palindromeChecker.isAPalindrome("Never Odd or Even")).toBeTruthy();
-//   })
-// })
