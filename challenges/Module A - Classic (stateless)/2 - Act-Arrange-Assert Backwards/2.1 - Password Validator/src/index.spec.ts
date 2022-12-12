@@ -37,7 +37,19 @@ describe('password validator', () => {
     // assert
     expect(response.result).toBeTruthy();
     expect(response.errors.length).toBe(0);
-  })
+  });
+
+  it('returns a successful response when a word like "mother" is exactly 6 characters', () => {
+    // arrange
+    let response: CheckedPasswordResponse;
+
+    // act
+    response = PasswordChecker.checkPassword('mother')
+
+    // assert
+    expect(response.result).toBeTruthy();
+    expect(response.errors.length).toBe(0);
+  });
   
 })
 
