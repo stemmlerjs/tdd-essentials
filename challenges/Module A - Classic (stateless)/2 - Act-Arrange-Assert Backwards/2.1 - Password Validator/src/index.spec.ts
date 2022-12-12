@@ -50,6 +50,18 @@ describe('password validator', () => {
     expect(response.result).toBeTruthy();
     expect(response.errors.length).toBe(0);
   });
+
+  it('returns a successful response when a word like "mothers" is exactly 7 characters', () => {
+    // arrange
+    let response: CheckedPasswordResponse;
+
+    // act
+    response = PasswordChecker.checkPassword('mothers')
+
+    // assert
+    expect(response.result).toBeTruthy();
+    expect(response.errors.length).toBe(0);
+  });
   
 })
 
