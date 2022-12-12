@@ -7,7 +7,6 @@ export type CheckedPasswordResponse = {
 }
 
 export class PasswordChecker {
-
   public static checkPassword (password: string): CheckedPasswordResponse {
     return {
       result: false,
