@@ -1,5 +1,5 @@
 
-type PasswordError = 'InvalidLengthError'
+type PasswordError = 'InvalidLengthError' | 'MissingDigitError'
 
 export type CheckedPasswordResponse = {
   result: boolean;
@@ -7,15 +7,21 @@ export type CheckedPasswordResponse = {
 }
 
 const isLengthBetween = (lower: number, upper: number, text: string) => {
-  return text.length >= 5 && text.length <= 10
+  return text.length >= lower && text.length <= upper
+}
+
+const hasDigits = (text: string) => {
+  return text.split("").find((char: any) => !isNaN(char));
 }
 
 export class PasswordChecker {
   public static checkPassword (password: string): CheckedPasswordResponse {
-    if (isLengthBetween(5, 10, password)) return { result: true, errors: [] };
+    let errors: PasswordError[] = [];
+    if (!isLengthBetween(5, 10, password)) errors.push('InvalidLengthError');
+    if (!hasDigits(password)) errors.push('MissingDigitError');
     return {
-      result: false,
-      errors: ['InvalidLengthError']
+      result: errors.length === 0,
+      errors
     }
   }
 }
