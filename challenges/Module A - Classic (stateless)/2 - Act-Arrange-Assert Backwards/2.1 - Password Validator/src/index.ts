@@ -6,9 +6,13 @@ export type CheckedPasswordResponse = {
   errors: PasswordError[]
 }
 
+const isLengthBetween = (lower: number, upper: number, text: string) => {
+  return text.length >= 5 && text.length <= 10
+}
+
 export class PasswordChecker {
   public static checkPassword (password: string): CheckedPasswordResponse {
-    if (password.length >= 5 && password.length <= 10) return { result: true, errors: [] };
+    if (isLengthBetween(5, 10, password)) return { result: true, errors: [] };
     return {
       result: false,
       errors: ['InvalidLengthError']
