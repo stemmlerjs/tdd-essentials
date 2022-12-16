@@ -7,6 +7,8 @@ type Position = 'topLeft' | 'topRight' | 'topMiddle' |
 
 type Slot = 'x' | 'o' | ''
 
+type GameResult = 'draw' | 'playerOneWon'
+
 export class TicTacToe {
 
   private turn: Player;
@@ -47,17 +49,33 @@ export class TicTacToe {
     }
   }
 
-
   move (position: Position): void {
     this.turn = this.turn === 'playerOne' ? 'playerTwo' : 'playerOne';
 
     let [x, y] = this.getSlotCoordinateFromPosition(position)
-    this.grid[x][y] = this.turn === 'playerOne' ? 'x' : 'o';
+    this.grid[x][y] = this.turn === 'playerTwo' ? 'x' : 'o';
     this.slotsLeft--;
   }
 
+  private isGameOverForVictoryReason () {
+    console.log(this.grid)
+    return this.grid[2][0] === 'x' && this.grid[2][1] === 'x' && this.grid[2][2] === 'x';
+  }
+
+  private isGameGraw () {
+    return this.slotsLeft === 0 
+  }
+
   isOver () {
-    return this.slotsLeft === 0;
+    return this.isGameGraw() || this.isGameOverForVictoryReason();
+  }
+
+  getResult (): GameResult {
+    if (this.isGameOverForVictoryReason()) {
+      return 'playerOneWon'
+    }
+
+    return 'draw';
   }
 
 }

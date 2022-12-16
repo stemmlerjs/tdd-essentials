@@ -47,7 +47,19 @@ describe('tic tac toe', () => {
   it("knows that the game is not a draw when there are still slots left", () => {
     game.move('topLeft');
     expect(game.isOver()).toBeFalsy();
+    expect(game.getResult()).toEqual('draw')
+  });
+
+  it ("knows when player 1 won the game by playing all of the bottom slots", () => {
+    game.move('bottomLeft');
+    game.move('middle');
+    game.move('bottomMiddle');
+    game.move('middleLeft');
+    game.move('bottomRight');
+    expect(game.isOver()).toBeTruthy();
+    expect(game.getResult()).toEqual('playerOneWon')
   })
+
 
 })
 
