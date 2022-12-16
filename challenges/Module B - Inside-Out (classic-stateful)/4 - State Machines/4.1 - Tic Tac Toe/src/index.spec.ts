@@ -57,8 +57,21 @@ describe('tic tac toe', () => {
     game.move('middleLeft');
     game.move('bottomRight');
     expect(game.isOver()).toBeTruthy();
-    expect(game.getResult()).toEqual('playerOneWon')
-  })
+    expect(game.getResult()).toEqual('playerOneWon');
+  });
+
+  it ("knows when player 2 has won the game by playing all of the bottom slots", () => {
+    game.move('topLeft');
+    game.move('bottomLeft');
+    game.move('middle');
+    game.move('bottomMiddle');
+    game.move('middleLeft');
+    game.move('bottomRight');
+    expect(game.isOver()).toBeTruthy();
+    expect(game.getResult()).toEqual('playerTwoWon');
+  });
+
+  // Continue
 
 
 })

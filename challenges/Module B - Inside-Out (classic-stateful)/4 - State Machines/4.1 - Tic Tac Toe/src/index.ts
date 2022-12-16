@@ -1,81 +1,102 @@
+import { Grid } from "./grid";
 
-type Player = 'playerOne' | 'playerTwo'
+type Player = "playerOne" | "playerTwo";
 
-type Position = 'topLeft' | 'topRight' | 'topMiddle' |
-  'middleLeft' | 'middle' | 'middleRight' | 'bottomLeft' |
-  'bottomMiddle' | 'bottomRight';
+type Position =
+  | "topLeft"
+  | "topRight"
+  | "topMiddle"
+  | "middleLeft"
+  | "middle"
+  | "middleRight"
+  | "bottomLeft"
+  | "bottomMiddle"
+  | "bottomRight";
 
-type Slot = 'x' | 'o' | ''
+export type Slot = "x" | "o" | "";
 
-type GameResult = 'draw' | 'playerOneWon'
+type VictoryType = "playerOneWon" | "playerTwoWon";
+
+type GameResult = "draw" | VictoryType;
 
 export class TicTacToe {
-
   private turn: Player;
-  private grid: Slot[][];
-  private slotsLeft: number = 9;
+  private grid: Grid;
 
-  constructor () {
-    this.turn = 'playerOne';
-    this.grid = [...Array<Slot>(3)].map(e => Array<Slot>(3).fill(''));
+  constructor() {
+    this.turn = "playerOne";
+    this.grid = new Grid();
   }
 
-  getTurn (): Player {
+  getTurn(): Player {
     return this.turn;
   }
 
-  private getSlotCoordinateFromPosition (position: Position): [number, number] {
+  private getSlotCoordinateFromPosition(position: Position): [number, number] {
     switch (position) {
-      case 'topLeft':
+      case "topLeft":
         return [0, 0];
-      case 'topRight':
+      case "topRight":
         return [0, 1];
-      case 'topMiddle':
+      case "topMiddle":
         return [0, 2];
-      case 'middleLeft':
+      case "middleLeft":
         return [1, 0];
-      case 'middle':
+      case "middle":
         return [1, 1];
-      case 'middleRight':
+      case "middleRight":
         return [1, 2];
-      case 'bottomLeft':
+      case "bottomLeft":
         return [2, 0];
-      case 'bottomMiddle':
+      case "bottomMiddle":
         return [2, 1];
-      case 'bottomRight':
+      case "bottomRight":
         return [2, 2];
       default:
-        throw new Error('Invalid position')  
+        throw new Error("Invalid position");
     }
   }
 
-  move (position: Position): void {
-    this.turn = this.turn === 'playerOne' ? 'playerTwo' : 'playerOne';
+  move(position: Position): void {
+    this.turn = this.turn === "playerOne" ? "playerTwo" : "playerOne";
 
-    let [x, y] = this.getSlotCoordinateFromPosition(position)
-    this.grid[x][y] = this.turn === 'playerTwo' ? 'x' : 'o';
-    this.slotsLeft--;
+    let [x, y] = this.getSlotCoordinateFromPosition(position);
+    this.grid.setSlot(x, y, this.turn === "playerTwo" ? "x" : "o");
   }
 
-  private isGameOverForVictoryReason () {
-    console.log(this.grid)
-    return this.grid[2][0] === 'x' && this.grid[2][1] === 'x' && this.grid[2][2] === 'x';
+  private isGameOverForVictoryReason() {
+    // Bottom row
+    return (
+      this.grid.getSlotAt(2, 0) !== "" &&
+      this.grid.getSlotAt(2, 1) !== "" &&
+      this.grid.getSlotAt(2, 2) !== ""
+    );
   }
 
-  private isGameGraw () {
-    return this.slotsLeft === 0 
+  private getVictoryResult(): { player: VictoryType } {
+    // checking bottom row
+    let winningPlayer =
+      this.grid.getSlotAt(2, 0) === "x" ? "playerOne" : "playerTwo";
+
+    return {
+      player: winningPlayer === "playerOne" ? "playerOneWon" : "playerTwoWon",
+    };
   }
 
-  isOver () {
+  private isGameGraw() {
+    return this.grid.getSlotsLeft() === 0;
+  }
+
+  isOver() {
     return this.isGameGraw() || this.isGameOverForVictoryReason();
   }
 
-  getResult (): GameResult {
+  getResult(): GameResult {
     if (this.isGameOverForVictoryReason()) {
-      return 'playerOneWon'
+      let victoryResult = this.getVictoryResult();
+      return victoryResult.player;
     }
 
-    return 'draw';
+    return "draw";
   }
-
 }
