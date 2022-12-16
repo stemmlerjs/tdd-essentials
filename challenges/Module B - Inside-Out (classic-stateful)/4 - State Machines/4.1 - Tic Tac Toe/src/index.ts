@@ -1,7 +1,7 @@
 
 type Player = 'playerOne' | 'playerTwo'
 
-type Position = 'topLeft'
+type Position = 'topLeft' | 'topRight' | 'topMiddle'
 
 export class TicTacToe {
 
@@ -16,9 +16,7 @@ export class TicTacToe {
   }
 
   move (position: Position): void {
-    if (this.turn === 'playerOne') {
-      this.turn = 'playerTwo'
-    }
+    this.turn = this.turn === 'playerOne' ? 'playerTwo' : 'playerOne';
   }
 
 }
