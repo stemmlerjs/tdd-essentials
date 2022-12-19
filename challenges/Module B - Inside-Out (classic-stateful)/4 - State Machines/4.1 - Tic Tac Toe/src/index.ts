@@ -19,6 +19,10 @@ type VictoryType = "playerOneWon" | "playerTwoWon";
 
 type GameResult = "draw" | VictoryType;
 
+/**
+ * @Stereotype Controller
+ */
+
 export class TicTacToe {
   private turn: Player;
   private grid: Grid;
