@@ -43,9 +43,9 @@ describe("boolean calculator", () => {
       expect(BooleanCalculator.calculate("TRUE AND TRUE")).toBeTruthy();
     })
 
-    // it('knows that "FALSE AND FALSE" -> true', () => {
-      
-    // })
+    it('knows that "FALSE AND FALSE" -> true', () => {
+      expect(BooleanCalculator.calculate("FALSE AND FALSE")).toBeTruthy();
+    })
   })
   
 });
