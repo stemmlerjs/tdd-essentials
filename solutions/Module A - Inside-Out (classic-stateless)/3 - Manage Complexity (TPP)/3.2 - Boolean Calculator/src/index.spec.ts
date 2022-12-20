@@ -32,6 +32,20 @@ describe("boolean calculator", () => {
     it('knows that "NOT FALSE" equates to true', () => {
       expect(BooleanCalculator.calculate("NOT FALSE")).toBeTruthy();
     })
+  });
+
+  describe('and operator', () => {
+    it('knows that "TRUE AND FALSE" -> false', () => {
+      expect(BooleanCalculator.calculate("TRUE AND FALSE")).toBeFalsy();
+    })
+
+    // it('knows that "TRUE AND TRUE" -> true', () => {
+      
+    // })
+
+    // it('knows that "FALSE AND FALSE" -> true', () => {
+      
+    // })
   })
   
 });
