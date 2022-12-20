@@ -40,3 +40,19 @@ Here are some examples:
 
 > "(TRUE OR TRUE OR TRUE) AND FALSE" -> false
 > "NOT (TRUE AND TRUE)" -> false
+
+## Getting started
+
+To set up the project, run the following command:
+
+```bash
+npm run install
+```
+
+## To run the tests in development mode
+
+To run the tests and have them reload when you save, run the following command:
+
+```bash
+npm run test:dev
+```
